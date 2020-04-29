@@ -1,13 +1,17 @@
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
 import 'buttom_button.dart';
+import 'details_page.dart';
+import 'package:re_green/product_datails.dart';
+import 'product_datails.dart';
 
-enum Type{oil,cartoon, paper ,food, metal ,plastic}
 
 class InputPage extends StatefulWidget {
+
   @override
   _InputPageState createState() => _InputPageState();
 }
@@ -16,6 +20,7 @@ class _InputPageState extends State<InputPage> {
  // var maleCardColor = inactiveCardColor;
   //var femaleCardColor = inactiveCardColor;
   Type selectedType;
+  bool isChosen=false;
 
 
 
@@ -39,6 +44,7 @@ class _InputPageState extends State<InputPage> {
                       onPress: (){
                         setState(() {
                           selectedType=Type.oil;
+                          isChosen=true;
                         });
                       },
                       myColor: selectedType==Type.oil? kActiveCardColor:kInactiveCardColor ,
@@ -52,6 +58,7 @@ class _InputPageState extends State<InputPage> {
                       onPress: (){
                         setState(() {
                           selectedType=Type.cartoon;
+                          isChosen=true;
                         });
                       },
                       myColor: selectedType==Type.cartoon? kActiveCardColor:kInactiveCardColor,
@@ -70,6 +77,7 @@ class _InputPageState extends State<InputPage> {
                       onPress: (){
                         setState(() {
                           selectedType=Type.food;
+                          isChosen=true;
                         });
                       },
                       myColor: selectedType==Type.food? kActiveCardColor:kInactiveCardColor ,
@@ -83,6 +91,7 @@ class _InputPageState extends State<InputPage> {
                       onPress: (){
                         setState(() {
                           selectedType=Type.paper;
+                          isChosen=true;
                         });
                       },
                       myColor: selectedType==Type.paper? kActiveCardColor:kInactiveCardColor,
@@ -102,6 +111,7 @@ class _InputPageState extends State<InputPage> {
                       onPress: (){
                         setState(() {
                           selectedType=Type.metal;
+                          isChosen=true;
                         });
                       },
                       myColor: selectedType==Type.metal? kActiveCardColor:kInactiveCardColor ,
@@ -114,6 +124,7 @@ class _InputPageState extends State<InputPage> {
                       onPress: (){
                        setState(() {
                          selectedType=Type.plastic;
+                         isChosen=true;
                        });
                       },
                       myColor: selectedType==Type.plastic? kActiveCardColor:kInactiveCardColor,
@@ -124,11 +135,22 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          ButtomButton(
-            buttonTitle: 'NEXT',
-            onTap:(){
-            },
-          ),
+           ButtomButton(
+             buttonTitle:  'NEXT',
+             onTap: (){
+               if(isChosen){
+                 ProductDetails product_details=ProductDetails();
+               Navigator.push(context, MaterialPageRoute(
+                 builder: (context)=> Details_page(
+                   details:product_details.getProductDetails(selectedType) ,
+                 ),
+               ),);}
+               else{
+                 Alert(context: context, title: "RFLUTTER", desc: "Choose Product First").show();
+               }
+
+             },
+           ),
           SizedBox(
             height: 17.0,
           ),
@@ -137,6 +159,7 @@ class _InputPageState extends State<InputPage> {
     );
   }
 }
+
 
 
 
